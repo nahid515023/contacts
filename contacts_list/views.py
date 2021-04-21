@@ -18,3 +18,7 @@ def addContacts(request):
         return redirect('/')
 
     return render(request,'new.html')
+
+
+def profile(request):
+    return render(request,'contact-profile.html')
