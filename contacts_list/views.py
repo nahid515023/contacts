@@ -8,12 +8,12 @@ def index(request):
 def addContacts(request):
 
     if request.method=="POST":
-        name=request.POST['fullname'],
-        relationship=request.POST['relationship'],
-        phone=request.POST['phone-number'],
-        address=request.POST['address'],
-        email=request.POST['email']
-        user=Contact(full_name=name,relationship=relationship,phone_number=phone,address=address,email=email)
+        user=Contact(
+            full_name=request.POST['fullname'],
+            relationship=request.POST['relationship'],
+            phone_number=request.POST['phone-number'],
+            email=request.POST['email'],
+            address=request.POST['address'],)
         user.save()
         return redirect('/')
 
