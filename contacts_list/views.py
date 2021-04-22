@@ -20,5 +20,26 @@ def addContacts(request):
     return render(request,'new.html')
 
 
-def profile(request):
-    return render(request,'contact-profile.html')
+def profile(request, pk):
+    contact=Contact.objects.get(id=pk)
+    return render(request,'contact-profile.html',{'contact':contact})
+
+def edit(request,pk):
+    contact=Contact.objects.get(id=pk)
+    if request.method=="POST":
+        contact.full_name=request.POST['fullname']
+        contact.relationship=request.POST['relationship']
+        contact.phone_number=request.POST['phone-number']
+        contact.email=request.POST['email']
+        contact.address=request.POST['address']
+        contact.save()
+        Id=str(contact.id)
+        return redirect('/profile/'+Id)
+    return render(request,'edit.html',{'contact':contact})
+
+def delete(request,pk):
+    contact=Contact.objects.get(id=pk)
+    if request.method=='POST':
+        contact.delete()
+        return redirect('/')
+    return render(request,'delete.html',{'contact':contact})
